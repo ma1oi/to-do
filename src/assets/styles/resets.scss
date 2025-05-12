@@ -1,0 +1,25 @@
+::selection {
+  background: var(--brand500-color);
+}
+
+::-moz-selection {
+  background: var(--brand500-color);
+}
+
+html::-webkit-scrollbar { width: 0 !important }
+
+html, body {
+  * {
+    outline: none !important;
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+}
+
+html {
+  scroll-behavior: smooth;
+}

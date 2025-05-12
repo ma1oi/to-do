@@ -1,0 +1,9 @@
+.Input {
+  background-color: var(--color-gray-700);
+  color: var(--color-gray-100);
+  border-color: var(--color-gray-700);
+}
+
+.Input::placeholder {
+  color: var(--color-gray-400);
+}
