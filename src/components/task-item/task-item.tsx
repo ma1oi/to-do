@@ -17,6 +17,7 @@ export default function TaskItem({
 	onDeleteTask,
 	onEditTask,
 }: TaskItemProps) {
+
 	return (
 		<div
 			className={`transition-colors duration-700 bg-white dark:bg-gray-800 rounded-lg shadow p-4 ${

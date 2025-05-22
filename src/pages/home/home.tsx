@@ -1,4 +1,5 @@
 import {useEffect, useState} from 'react';
+import Confetti from 'react-confetti'
 
 import FilterBar from '@/components/filter-bar/filter-bar.tsx';
 import TaskForm from '@/components/task-form/task-form.tsx';
@@ -8,7 +9,7 @@ import { useTasks } from '@/hooks/use-tasks.ts';
 import type {Task} from '@/types/task.ts';
 
 const HomePage = () => {
-  const { tasks, addTask, updateTask, deleteTask, toggleTaskCompletion } = useTasks()
+  const { tasks, addTask, updateTask, deleteTask, toggleTaskCompletion, confetti, setConfetti } = useTasks()
 
   const [filteredTasks, setFilteredTasks] = useState<Task[]>(tasks)
   const [filterStatus, setFilterStatus] = useState<'all' | 'active' | 'completed'>('all')
@@ -51,22 +52,44 @@ const HomePage = () => {
   const handleCancelEdit = () => {
     setEditingTask(null)
   }
+	
+	console.log(confetti);
 
-  return (
-    <main className='min-h-screen bg-gray-50 dark:bg-gray-900 py-8 px-4 sm:px-6 lg:px-8 transition-colors duration-200'>
-      <div className='max-w-4xl mx-auto'>
-        <div className='flex justify-between items-center mb-8'>
-          <h1 className='text-3xl font-bold text-gray-900 dark:text-white'>Список задач</h1>
-          <ThemeToggle />
-        </div>
+	return (
 
-        <div className='space-y-6'>
-          <FilterBar sortOrder={sortOrder} setSortOrder={setSortOrder} filterStatus={filterStatus} setFilterStatus={setFilterStatus} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-          <TaskForm onAddTask={addTask} editingTask={editingTask} onUpdateTask={handleUpdateTask} onCancelEdit={handleCancelEdit} />
-          <TaskList tasks={filteredTasks} onToggleCompletion={toggleTaskCompletion} onDeleteTask={deleteTask} onEditTask={handleEditTask} />
-        </div>
-      </div>
-    </main>
+		<div>
+
+			{
+				confetti && (
+					<Confetti
+						run={confetti}
+						width={window.innerWidth}
+						height={window.innerHeight}
+						recycle={false}
+						numberOfPieces={200}
+						tweenDuration={2000}
+						gravity={0.7}
+						onConfettiComplete={() => setConfetti(false)}
+					/>
+				)
+			}
+
+
+			<main className='min-h-screen bg-gray-50 dark:bg-gray-900 py-8 px-4 sm:px-6 lg:px-8 transition-colors duration-200'>
+				<div className='max-w-4xl mx-auto'>
+					<div className='flex justify-between items-center mb-8'>
+						<h1 className='text-3xl font-bold text-gray-900 dark:text-white'>Список задач</h1>
+						<ThemeToggle />
+					</div>
+
+					<div className='space-y-6'>
+						<FilterBar sortOrder={sortOrder} setSortOrder={setSortOrder} filterStatus={filterStatus} setFilterStatus={setFilterStatus} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+						<TaskForm onAddTask={addTask} editingTask={editingTask} onUpdateTask={handleUpdateTask} onCancelEdit={handleCancelEdit} />
+						<TaskList tasks={filteredTasks} onToggleCompletion={toggleTaskCompletion} onDeleteTask={deleteTask} onEditTask={handleEditTask} />
+					</div>
+				</div>
+			</main>
+		</div>
   )
 };
 

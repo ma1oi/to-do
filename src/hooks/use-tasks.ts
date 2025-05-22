@@ -5,6 +5,7 @@ import type { Task } from '@/types/task';
 
 export function useTasks() {
 	const [tasks, setTasks] = useState<Task[]>([]);
+	const [confetti, setConfetti] = useState<boolean>(false);
 
 	useEffect(() => {
 		const storedTasks = localStorage.getItem('tasks');
@@ -54,6 +55,9 @@ export function useTasks() {
 		setTasks((prevTasks) =>
 			prevTasks.map((task) => (task.id === id ? { ...task, completed: !task.completed } : task)),
 		);
+
+		const task = tasks.find(task => task.id === id);
+		setConfetti(!task?.completed);
 	};
 
 	return {
@@ -62,5 +66,7 @@ export function useTasks() {
 		updateTask,
 		deleteTask,
 		toggleTaskCompletion,
+		confetti,
+		setConfetti
 	};
 }
