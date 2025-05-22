@@ -1,5 +1,5 @@
-# TO-DO-MILLIDA 📝
-[Ссылка на результат](https://to-do-millida-izh1.vercel.app/)
+# TO-DO 📝
+[Ссылка на результат](https://to-do.danila-smirnov.ru/)
 ## 🚀 Установка
 
 ```bash
